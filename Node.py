@@ -1,14 +1,28 @@
-import sys
 class Node:
     def __init__(self, data):
         self.data = data
         self.ref = None
 
 class BST:
-    def __init__(self, data):
-        self.data = data
+    def __init__(self, key):
+        self.key = key
         self.left = None
         self.right = None
+    
+    def insert(self, data):
+        if self.key is None:
+            self.key = data
+            return
+        if self.key > data:
+            if self.left is not None:
+                self.left.insert(data)
+            else:
+                self.left = BST(data)
+        else:
+            if self.right is not None:
+                self.right.insert(data)
+            else:
+                self.right = BST(data)
 
 class Queue:
     def __init__(self):
@@ -31,7 +45,7 @@ class Queue:
         elif self.front.ref is None:#Checks if there is any element after the front
             print(f"Popped element is {self.front.data}")
             self.front = None
-            return
+            
         else:
             n = self.front
             print(f"Popped element is {self.front.data}")
@@ -50,9 +64,19 @@ class Queue:
             print(f"Front of Queue is {self.front.data}")
             print(f"Rear of Queue is {self.rear.data}")
 
+    def sort_queue(self):
+        n = self.front
+        queue_list = []
+        while n is not None:
+            queue_list.append(n.data)
+            n = n.ref
+        queue_list.sort()
+        for element in queue_list:
+            self.enqueue(element)
+        
 
-
-
+        
+            
 class SingleLinkedList:
     def __init__(self):
         self.head = None
